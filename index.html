@@ -1,114 +1,14 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Diseñador Freelancer</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link href="build/css/app.css" rel="stylesheet">
-    <script src="https://unpkg.com/lucide@latest"></script>
-</head>
-<body>
-    <header id="inicio" class="header">
-            <h1 class="title">
-              <span class="name">Wilder Cermeño</span>
-              <span class="freelancer">Freelancer</span>
-            </h1>
-    </header>
-    <div class="container">
-        <nav class="navbar">
-            <ul class="nav">
-                <li><a class="hoverable" href="#inicio">Inicio</a></li>
-                <li><a class="hoverable" href="#sobre-mi">Sobre Mi</a></li>
-                <li><a class="hoverable" href="#proyectos">Proyectos</a></li>
-                <li><a class="hoverable" href="#contacto">Contacto</a></li>
-            </ul>
-        </nav>
-    </div>
-    <div class="profile">
-        <div class="overlay">
-            <div class="contenedor contenido-video">
-            <h2>Diseño y Desarrollo Web Freelancer</h2>
-            </div>
-        </div>
-        <video autoplay muted loop>
-                <source src="build/video/perfil.mp4">
-            </video>
-    </div>
-    <section id="sobre-mi" class="about">
-        <div class="nivel1">
-            <img width="300" height="200" loading="lazy" class="nivel1_imagen" src="build/img/about.jpeg" alt="Imagen Personal">
-            <div class="about_contenido">
-            <h2>Sobre Mi</h2>
-            <p>Técnico Superior en Informática con Especialización en Gestión de Bases de Datos y Desarrollo Web</p>
-            <p>
-                Soy un profesional apasionado por las tecnologías de la información, con una sólida formación en la gestión y optimización de bases de datos, especialmente en MySQL y SQL. He desarrollado una amplia experiencia en el diseño, implementación y mantenimiento de soluciones de bases de datos que respaldan operaciones eficientes y garantizan la integridad de los datos.
-            </p>
-            <p>
-                Mi enfoque en la optimización de consultas ha permitido mejorar significativamente el rendimiento de los sistemas de información en diversos proyectos. Además, tengo habilidades destacadas en desarrollo web, trabajando con SCSS, HTML y JavaScript para crear aplicaciones atractivas y funcionales.
-            </p>
-            <p>
-                Estoy comprometido con la excelencia en cada aspecto de mi trabajo y busco constantemente oportunidades para aprender y crecer en el ámbito de la tecnología.
-            </p>
-            
-            </div>
-        </div>
-    <img width="300" height="200" loading="lazy" class="about_fondo" src="build/img/fondo2.jpg" alt="Fondo de about">
-    </section>
-    <section id="proyectos" class="miniaturas">
-        <img width="300" height="200" loading="lazy" src="build/img/fondo3.jpg" alt="Imagen de fondo de proyectos" class="background-image" />
-        <div class="contenedores_miniaturas">
-            <h1>Proyectos</h1>
-            <div class="tech-icons" id="tech-icons"></div>
-            <div id="thumbnails-grid" class="thumbnails-grid"></div>
-        </div>
-    </section>  
-    <footer class="footer" id="contacto">
-        <div class="footer__slogan-container">
-            <h2 class="footer__slogan">Wilder Cermeño</h2>
-            <h2 class="footer__slogan">Encargado de resolver tus problemas</h2>
-        </div>
-        <div class="footer__container">
-            <div class="footer__section footer__section--center">
-                <h3 class="footer__title">Contacto</h3>
-                <ul class="footer__contact-list">
-                    <li class="footer__contact-item">
-                        <i data-lucide="phone"></i>
-                        <span>+58 (412) 091-8850</span>
-                    </li>
-                    <li class="footer__contact-item">
-                        <i data-lucide="mail"></i>
-                        <span>wildercermenocl@gmail.com</span>
-                    </li>
-                    <li class="footer__contact-item">
-                        <i data-lucide="map-pin"></i>
-                        <span>Maturin, Monagas, Venezuela</span>
-                    </li>
-                </ul>
-            </div>
-            <div class="footer__section footer__section--center">
-                <h3 class="footer__title">Redes Sociales</h3>
-                <div class="footer__social-links">
-                    <a href="https://www.facebook.com/BakastaNub/" class="footer__social-link" aria-label="Facebook">
-                        <i data-lucide="facebook"></i>
-                    </a>
-                    <a href="https://github.com/BakastaNub" class="footer__social-link" aria-label="GitHub">
-                        <i data-lucide="github"></i>
-                    </a>
-                    <a href="https://www.instagram.com/bakastanub" class="footer__social-link" aria-label="Instagram">
-                        <i data-lucide="instagram"></i>
-                    </a>
-                    <a href="https://www.linkedin.com/in/bakastanub" class="footer__social-link" aria-label="LinkedIn">
-                        <i data-lucide="linkedin"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-        <div class="footer__bottom">
-            <p class="footer__copyright">© <span id="currentYear"></span> Todos los derechos reservados</p>
-        </div>
-        <div class="footer__wave"></div>
-    </footer> 
-    <script src="build/js/script.js"></script>
-</body>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/jpeg" href="/img/Icono perfil.jpg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wilder Cermeño | Wilsolution</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
 </html>
