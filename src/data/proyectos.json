@@ -1,0 +1,50 @@
+[
+  {
+    "nombre": "Festival Musical",
+    "descripcion": "Plataforma para festivales de musica con venta de entradas",
+    "tecnologias": ["html", "css", "js", "sass"],
+    "url": "https://festival-musical-sass.netlify.app/"
+  },
+  {
+    "nombre": "Blog de Cafe",
+    "descripcion": "Blog sobre cafe con articulos y tutoriales",
+    "tecnologias": ["html", "css"],
+    "url": "https://pagina-modelo-cafe.netlify.app/"
+  },
+  {
+    "nombre": "Dev Store",
+    "descripcion": "Tienda de camisas para devs",
+    "tecnologias": ["html", "css"],
+    "url": "https://camisas-devs-tienda.netlify.app/"
+  },
+  {
+    "nombre": "Presentacion",
+    "descripcion": "Pagina de presentacion personal",
+    "tecnologias": ["html", "css"],
+    "url": "https://presentacion-muestra.netlify.app/"
+  },
+  {
+    "nombre": "Portafolio",
+    "descripcion": "Portafolio personal con diseno moderno",
+    "tecnologias": ["react", "css"],
+    "url": "https://bakastanub.netlify.app/"
+  },
+  {
+    "nombre": "Mantenimiento",
+    "descripcion": "Sistema de gestion de mantenimiento",
+    "tecnologias": ["react", "css", "js"],
+    "url": "https://lmantenimiento.netlify.app/"
+  },
+  {
+    "nombre": "BlueNails",
+    "descripcion": "Servicios de manicura y pedicura con backend",
+    "tecnologias": ["react", "css", "js", "node", "supabase"],
+    "url": "https://bluenails.netlify.app/"
+  },
+  {
+    "nombre": "Guitarly",
+    "descripcion": "Plataforma para aprender guitarra",
+    "tecnologias": ["react", "css", "js"],
+    "url": "https://guitarly-web.netlify.app/"
+  }
+]

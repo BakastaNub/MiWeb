@@ -1,0 +1,21 @@
+{
+  "Frontend": [
+    { "nombre": "HTML", "icono": "fa-html5", "color": "#ff7300" },
+    { "nombre": "CSS", "icono": "fa-css3", "color": "#1572B6" },
+    { "nombre": "JavaScript", "icono": "fa-js", "color": "#F7DF1E" },
+    { "nombre": "React", "icono": "fa-react", "color": "#61DAFB" },
+    { "nombre": "SASS/SCSS", "icono": "fa-sass", "color": "#CC6699" }
+  ],
+  "Backend": [
+    { "nombre": "MySQL", "icono": "fa-database", "color": "#4479A1" },
+    { "nombre": "SQL", "icono": "fa-table", "color": "#336791" },
+    { "nombre": "Node.js", "icono": "fa-node", "color": "#339933" },
+    { "nombre": "Supabase", "icono": "fa-layer-group", "color": "#3ECF8E" }
+  ],
+  "Herramientas": [
+    { "nombre": "Git", "icono": "fa-git-alt", "color": "#F05032" },
+    { "nombre": "GitHub", "icono": "fa-github", "color": "#181717" },
+    { "nombre": "VS Code", "icono": "fa-code", "color": "#007ACC" },
+    { "nombre": "Netlify", "icono": "fa-cloud-upload", "color": "#00C7B7" }
+  ]
+}
