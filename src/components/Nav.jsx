@@ -21,8 +21,8 @@ export default function Nav() {
     <nav className={`nav ${scrolled ? 'nav--scrolled' : ''}`}>
       <div className="nav__container">
         <a href="#inicio" className="nav__logo">
-        <img src="/img/Icono perfil.jpg" alt="Wilsolution" />
-      </a>
+          <img src="/img/Icono perfil.jpg" alt="Wilsolution" />
+        </a>
         <ul className="nav__links">
           {links.map((link) => (
             <li key={link.href}>
