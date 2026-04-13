@@ -11,11 +11,15 @@ export default function Admin() {
   const [editingId, setEditingId] = useState(null);
   const [form, setForm] = useState({ nombre: '', descripcion: '', url: '', tecnologias: [] });
   const [isAdding, setIsAdding] = useState(false);
+  const [adminUser, setAdminUser] = useState(null);
 
   useEffect(() => {
-    if (sessionStorage.getItem('adminAuth') !== 'Wilsolution2024') {
+    const userSession = sessionStorage.getItem('adminUser');
+    if (!userSession) {
       navigate('/admin/login');
+      return;
     }
+    setAdminUser(JSON.parse(userSession));
     fetchProyectos();
   }, []);
 
@@ -30,7 +34,7 @@ export default function Admin() {
   };
 
   const handleLogout = () => {
-    sessionStorage.removeItem('adminAuth');
+    sessionStorage.removeItem('adminUser');
     navigate('/');
   };
 
@@ -90,7 +94,12 @@ export default function Admin() {
   return (
     <div className="admin">
       <header className="admin__header">
-        <h1>Panel de Administración</h1>
+        <div className="admin__header-left">
+          <h1>Panel de Administración</h1>
+          {adminUser && (
+            <span className="admin__user-email">{adminUser.email}</span>
+          )}
+        </div>
         <button onClick={handleLogout} className="admin__logout">Cerrar Sesión</button>
       </header>
 
@@ -166,6 +175,8 @@ export default function Admin() {
           <h2>Proyectos ({proyectos.length})</h2>
           {loading ? (
             <p>Cargando...</p>
+          ) : proyectos.length === 0 ? (
+            <p className="admin__empty">No hay proyectos. Agrega uno nuevo.</p>
           ) : (
             <div className="admin__list">
               {proyectos.map(proyecto => (

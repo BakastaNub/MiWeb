@@ -1,11 +1,9 @@
 import { Navigate } from 'react-router-dom';
 
-const ADMIN_PASSWORD = 'Wilsolution2024';
-
 export default function PrivateRoute({ children }) {
-  const isAuthenticated = sessionStorage.getItem('adminAuth') === ADMIN_PASSWORD;
+  const adminUser = sessionStorage.getItem('adminUser');
   
-  if (!isAuthenticated) {
+  if (!adminUser) {
     return <Navigate to="/admin/login" replace />;
   }
   
