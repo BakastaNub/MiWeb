@@ -170,4 +170,63 @@ VITE_SUPABASE_ANON_KEY=sb_publishable_sdL719boaFM4ozyUsv-7eA_Ik27kJ8e
 - ✅ Build exitoso
 - ✅ SEO implementado
 - ✅ sitemap.xml y robots.txt
-- ⏳ Panel Admin con Supabase (en progreso)
+- ✅ Panel Admin con Supabase
+- ⚠️ Tabla en Supabase (pendiente crear manualmente)
+
+---
+
+## Acceso Admin
+- **URL:** `/admin/login`
+- **Contraseña:** `Wilsolution2024`
+
+## Archivos Creados
+```
+src/
+├── lib/
+│   └── supabase.js          # Cliente Supabase
+├── pages/
+│   ├── Admin.jsx             # Panel de administración
+│   └── AdminLogin.jsx        # Login del admin
+├── components/
+│   └── PrivateRoute.jsx      # Protección de rutas
+├── App.jsx                   # Con rutas
+└── index.css                 # Estilos admin incluidos
+```
+
+---
+
+## ⚠️ Paso Pendiente: Crear Tabla en Supabase
+
+Ejecutar en Supabase Dashboard → SQL Editor:
+
+```sql
+CREATE TABLE proyectos (
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  nombre TEXT NOT NULL,
+  descripcion TEXT NOT NULL,
+  url TEXT NOT NULL,
+  tecnologias TEXT[] DEFAULT ARRAY[]::TEXT[],
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+ALTER TABLE proyectos ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "Proyectos son públicos" ON proyectos
+  FOR SELECT USING (true);
+
+CREATE POLICY "Solo admin puede modificar" ON proyectos
+  FOR ALL USING (auth.role() = 'service_role');
+```
+
+Insertar datos iniciales:
+```sql
+INSERT INTO proyectos (nombre, descripcion, url, tecnologias) VALUES
+('Festival Musical', 'Plataforma para festivales de musica con venta de entradas', 'https://festival-musical-sass.netlify.app/', ARRAY['html', 'css', 'js', 'sass']),
+('Blog de Cafe', 'Blog sobre cafe con articulos y tutoriales', 'https://pagina-modelo-cafe.netlify.app/', ARRAY['html', 'css']),
+('Dev Store', 'Tienda de camisas para devs', 'https://camisas-devs-tienda.netlify.app/', ARRAY['html', 'css']),
+('Presentacion', 'Pagina de presentacion personal', 'https://presentacion-muestra.netlify.app/', ARRAY['html', 'css']),
+('Portafolio', 'Portafolio personal con diseno moderno', 'https://bakastanub.netlify.app/', ARRAY['react', 'css']),
+('Mantenimiento', 'Sistema de gestion de mantenimiento', 'https://lmantenimiento.netlify.app/', ARRAY['react', 'css', 'js']),
+('BlueNails', 'Servicios de manicura y pedicura con backend', 'https://bluenails.netlify.app/', ARRAY['react', 'css', 'js', 'node', 'supabase']),
+('Guitarly', 'Plataforma para aprender guitarra', 'https://guitarly-web.netlify.app/', ARRAY['react', 'css', 'js']);
+```
