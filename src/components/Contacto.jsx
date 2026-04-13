@@ -1,23 +1,46 @@
 import { useState } from 'react';
+import { supabase } from '../lib/supabase';
+
+const SOCIAL_LINKS = [
+  { href: 'https://github.com/BakastaNub', icon: 'fab fa-github', label: 'GitHub' },
+  { href: 'https://www.linkedin.com/in/bakastanub', icon: 'fab fa-linkedin', label: 'LinkedIn' },
+  { href: 'https://www.facebook.com/BakastaNub/', icon: 'fab fa-facebook', label: 'Facebook' },
+  { href: 'https://www.instagram.com/wilsolution26', icon: 'fab fa-instagram', label: 'Instagram' },
+];
 
 export default function Contacto() {
   const [form, setForm] = useState({ nombre: '', email: '', mensaje: '' });
+  const [status, setStatus] = useState('idle');
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Form submitted:', form);
-  };
+    setStatus('loading');
 
-  const SOCIAL_LINKS = [
-    { href: 'https://github.com/BakastaNub', icon: 'fab fa-github', label: 'GitHub' },
-    { href: 'https://www.linkedin.com/in/bakastanub', icon: 'fab fa-linkedin', label: 'LinkedIn' },
-    { href: 'https://www.facebook.com/BakastaNub/', icon: 'fab fa-facebook', label: 'Facebook' },
-    { href: 'https://www.instagram.com/wilsolution26', icon: 'fab fa-instagram', label: 'Instagram' },
-  ];
+    try {
+      const { error } = await supabase
+        .from('contact_messages')
+        .insert([{
+          nombre: form.nombre,
+          email: form.email,
+          mensaje: form.mensaje
+        }]);
+
+      if (error) throw error;
+
+      setStatus('success');
+      setForm({ nombre: '', email: '', mensaje: '' });
+      
+      setTimeout(() => setStatus('idle'), 3000);
+    } catch (err) {
+      console.error('Error:', err);
+      setStatus('error');
+      setTimeout(() => setStatus('idle'), 3000);
+    }
+  };
 
   return (
     <footer id="contacto" className="contacto" aria-labelledby="contacto-titulo">
@@ -32,7 +55,7 @@ export default function Contacto() {
           </div>
           <div className="contacto__item">
             <i className="fas fa-envelope" />
-            <span>wildercermenoes@gmail.com</span>
+            <span>admin@wilsolution.com</span>
           </div>
           <div className="contacto__item">
             <i className="fas fa-map-marker-alt" />
@@ -64,7 +87,22 @@ export default function Contacto() {
             onChange={handleChange}
             required
           />
-          <button type="submit" className="contacto__btn">Enviar</button>
+          
+          {status === 'success' && (
+            <div className="contacto__success">
+              ¡Mensaje enviado con éxito! Te responderé pronto.
+            </div>
+          )}
+          
+          {status === 'error' && (
+            <div className="contacto__error">
+              Error al enviar. Intenta de nuevo.
+            </div>
+          )}
+          
+          <button type="submit" className="contacto__btn" disabled={status === 'loading'}>
+            {status === 'loading' ? 'Enviando...' : 'Enviar'}
+          </button>
         </form>
 
         <div className="contacto__social">
