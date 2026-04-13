@@ -617,9 +617,20 @@ body {
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
+.admin__header-left {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
 .admin__header h1 {
   color: var(--accent);
   font-size: 1.8rem;
+}
+
+.admin__user-email {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
 }
 
 .admin__logout {
