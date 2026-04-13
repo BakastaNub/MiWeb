@@ -7,11 +7,5 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 export const supabaseAdmin = createClient(
   supabaseUrl,
-  '***REMOVIDO***',
-  {
-    auth: {
-      autoRefreshToken: false,
-      persistSession: false
-    }
-  }
+  supabaseAnonKey
 );
