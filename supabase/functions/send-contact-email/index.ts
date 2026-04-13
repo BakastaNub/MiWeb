@@ -1,6 +1,6 @@
 import { Resend } from "npm:resend";
 
-const resend = new Resend('re_hNQ7AcTV_DTkWUh1fYLuE7JpQUiFBLcYu');
+const resend = new Resend(Deno.env.get("RESEND_API_KEY"));
 
 Deno.serve(async (req) => {
   try {
@@ -14,8 +14,8 @@ Deno.serve(async (req) => {
     }
 
     const { data, error } = await resend.emails.send({
-      from: 'Wilsolution <onboarding@resend.dev>',
-      to: 'admin@wilsolution.com',
+      from: 'Wilsolution <admin@wilsolution.com>',
+      to: 'wildercermeno@gmail.com',
       subject: `Nuevo mensaje de ${nombre} - Wilsolution`,
       html: `
         <h2>Nuevo mensaje de contacto</h2>
