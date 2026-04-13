@@ -173,7 +173,60 @@ VITE_SUPABASE_ANON_KEY=sb_publishable_sdL719boaFM4ozyUsv-7eA_Ik27kJ8e
 - ✅ sitemap.xml y robots.txt
 - ✅ Panel Admin con Supabase
 - ✅ Login seguro con bcrypt
-- ⚠️ Tabla admin_users (pendiente crear manualmente)
+- ✅ Formulario de contacto con Supabase
+- ✅ Panel de mensajes en Admin
+- ⚠️ Edge Function para emails (pendiente desplegar)
+- ⚠️ Verificación dominio en Resend
+
+---
+
+## Sistema de Contacto
+
+### Tabla `contact_messages` en Supabase
+```sql
+CREATE TABLE contact_messages (
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  nombre TEXT NOT NULL,
+  email TEXT NOT NULL,
+  mensaje TEXT NOT NULL,
+  leido BOOLEAN DEFAULT false,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+ALTER TABLE contact_messages ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "Permitir lectura pública" ON contact_messages FOR SELECT USING (true);
+CREATE POLICY "Permitir inserción pública" ON contact_messages FOR INSERT WITH CHECK (true);
+CREATE POLICY "Permitir actualización" ON contact_messages FOR UPDATE USING (true);
+CREATE POLICY "Permitir eliminación" ON contact_messages FOR DELETE USING (true);
+```
+
+### Edge Function `send-contact-email`
+Ubicación: `supabase/functions/send-contact-email/`
+- Recibe datos del formulario
+- Envía email vía Resend API
+- Destino: `admin@wilsolution.com`
+
+### Desplegar Edge Function
+```bash
+# 1. Instalar Supabase CLI
+npm install -g supabase
+
+# 2. Login
+supabase login
+
+# 3. Link al proyecto
+cd supabase/functions/send-contact-email
+supabase link --project-ref uzrvomvullxcugcnnmwm
+
+# 4. Desplegar
+supabase functions deploy send-contact-email
+```
+
+### Configuración Resend
+- API Key: `re_hNQ7AcTV_DTkWUh1fYLuE7JpQUiFBLcYu`
+- Email destino: `admin@wilsolution.com`
+- Nota: El dominio `wilsolution.com` debe estar verificado en Resend para enviar desde ese dominio
 
 ---
 
