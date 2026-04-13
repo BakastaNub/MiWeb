@@ -13,8 +13,9 @@ export default function Habilidades() {
   const categories = Object.keys(habilidades);
 
   return (
-    <section id="habilidades" className="habilidades">
-      <h2 className="section__title">Habilidades</h2>
+    <section id="habilidades" className="habilidades" aria-labelledby="habilidades-titulo">
+      <h2 id="habilidades-titulo" className="section__title">Habilidades y Tecnologías</h2>
+      <p className="habilidades__descripcion">Tecnologías y herramientas que domino para crear proyectos web completos, desde el frontend hasta el backend.</p>
       <div className="habilidades__container">
         {categories.map((category) => (
           <div key={category} className="habilidades__category">

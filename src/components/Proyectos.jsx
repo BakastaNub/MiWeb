@@ -33,8 +33,9 @@ export default function Proyectos() {
   };
 
   return (
-    <section id="proyectos" className="proyectos">
-      <h2 className="section__title">Proyectos</h2>
+    <section id="proyectos" className="proyectos" aria-labelledby="proyectos-titulo">
+      <h2 id="proyectos-titulo" className="section__title">Proyectos Realizados</h2>
+      <p className="proyectos__descripcion">Explora mis proyectos de desarrollo web, aplicaciones y soluciones digitales creadas para clientes y proyectos personales.</p>
       <div className="proyectos__grid">
         {proyectos.map((proyecto, index) => (
           <div
