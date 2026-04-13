@@ -1,4 +1,4 @@
-import { Resend } from 'resend';
+import { Resend } from "npm:resend";
 
 const resend = new Resend('re_hNQ7AcTV_DTkWUh1fYLuE7JpQUiFBLcYu');
 

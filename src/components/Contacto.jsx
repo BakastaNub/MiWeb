@@ -8,6 +8,8 @@ const SOCIAL_LINKS = [
   { href: 'https://www.instagram.com/wilsolution26', icon: 'fab fa-instagram', label: 'Instagram' },
 ];
 
+const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
+
 export default function Contacto() {
   const [form, setForm] = useState({ nombre: '', email: '', mensaje: '' });
   const [status, setStatus] = useState('idle');
@@ -21,15 +23,26 @@ export default function Contacto() {
     setStatus('loading');
 
     try {
-      const { error } = await supabase
-        .from('contact_messages')
-        .insert([{
-          nombre: form.nombre,
-          email: form.email,
-          mensaje: form.mensaje
-        }]);
+      const response = await fetch(
+        `${SUPABASE_URL}/functions/v1/send-contact-email`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            nombre: form.nombre,
+            email: form.email,
+            mensaje: form.mensaje,
+          }),
+        }
+      );
 
-      if (error) throw error;
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.error || 'Error al enviar');
+      }
 
       setStatus('success');
       setForm({ nombre: '', email: '', mensaje: '' });
