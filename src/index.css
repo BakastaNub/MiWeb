@@ -884,6 +884,30 @@ body {
   padding: 3rem;
 }
 
+.admin__error {
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  color: #ef4444;
+}
+
+.admin__error p {
+  margin-bottom: 0.5rem;
+}
+
+.admin__error p:last-child {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.admin__empty {
+  color: var(--text-secondary);
+  padding: 2rem;
+  text-align: center;
+}
+
 @media (max-width: 768px) {
   .admin__main {
     grid-template-columns: 1fr;

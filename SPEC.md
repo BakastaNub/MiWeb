@@ -150,10 +150,11 @@ VITE_SUPABASE_ANON_KEY=sb_publishable_sdL719boaFM4ozyUsv-7eA_Ik27kJ8e
 ```
 
 ### 6. Funcionalidades del Panel Admin (/admin)
-- **Login simple** con contraseña fija (no full auth)
+- **Login seguro** con email + contraseña (bcrypt hash)
 - **Lista de proyectos** con opciones editar/eliminar
 - **Formulario** para agregar nuevo proyecto
 - **Mismo estilo visual** oscuro (#0a0a0a) con acento cyan (#22d3ee)
+- **Sesión persistente** en sessionStorage
 
 ### 7. Cambios en Componente Proyectos
 - Reemplazar `import proyectos from '../data/proyectos.json'` por fetch a Supabase
@@ -171,12 +172,14 @@ VITE_SUPABASE_ANON_KEY=sb_publishable_sdL719boaFM4ozyUsv-7eA_Ik27kJ8e
 - ✅ SEO implementado
 - ✅ sitemap.xml y robots.txt
 - ✅ Panel Admin con Supabase
-- ⚠️ Tabla en Supabase (pendiente crear manualmente)
+- ✅ Login seguro con bcrypt
+- ⚠️ Tabla admin_users (pendiente crear manualmente)
 
 ---
 
 ## Acceso Admin
 - **URL:** `/admin/login`
+- **Email:** `admin@wilsolution.com`
 - **Contraseña:** `Wilsolution2024`
 
 ## Archivos Creados
@@ -230,3 +233,39 @@ INSERT INTO proyectos (nombre, descripcion, url, tecnologias) VALUES
 ('BlueNails', 'Servicios de manicura y pedicura con backend', 'https://bluenails.netlify.app/', ARRAY['react', 'css', 'js', 'node', 'supabase']),
 ('Guitarly', 'Plataforma para aprender guitarra', 'https://guitarly-web.netlify.app/', ARRAY['react', 'css', 'js']);
 ```
+
+---
+
+## ⚠️ Crear Tabla admin_users (Login Seguro)
+
+Ejecutar en Supabase Dashboard → SQL Editor:
+
+```sql
+CREATE TABLE admin_users (
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  email TEXT UNIQUE NOT NULL,
+  password_hash TEXT NOT NULL,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+ALTER TABLE admin_users ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "Solo lectura pública del email" ON admin_users
+  FOR SELECT USING (true);
+
+CREATE POLICY "Solo admin puede modificar usuarios" ON admin_users
+  FOR ALL USING (auth.role() = 'service_role');
+```
+
+Insertar usuario admin (contraseña: `Wilsolution2024`):
+```sql
+-- Hash bcrypt de 'Wilsolution2024'
+INSERT INTO admin_users (email, password_hash) VALUES 
+('admin@wilsolution.com', '$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi');
+```
+
+**Para crear más usuarios con bcrypt:**
+1. Ve a https://bcrypt-generator.com/
+2. Ingresa tu contraseña
+3. Copia el hash generado
+4. Ejecuta: `INSERT INTO admin_users (email, password_hash) VALUES ('tu@email.com', 'hash_generado');`

@@ -8,6 +8,7 @@ export default function Admin() {
   const navigate = useNavigate();
   const [proyectos, setProyectos] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [editingId, setEditingId] = useState(null);
   const [form, setForm] = useState({ nombre: '', descripcion: '', url: '', tecnologias: [] });
   const [isAdding, setIsAdding] = useState(false);
@@ -24,12 +25,25 @@ export default function Admin() {
   }, []);
 
   const fetchProyectos = async () => {
-    const { data, error } = await supabaseAdmin
-      .from('proyectos')
-      .select('*')
-      .order('created_at', { ascending: false });
-    
-    if (data) setProyectos(data);
+    try {
+      const { data, error: fetchError } = await supabaseAdmin
+        .from('proyectos')
+        .select('*')
+        .order('created_at', { ascending: false });
+      
+      if (fetchError) {
+        console.error('Fetch error:', fetchError);
+        setError(fetchError.message);
+        setLoading(false);
+        return;
+      }
+      
+      setProyectos(data || []);
+      setError(null);
+    } catch (err) {
+      console.error('Unexpected error:', err);
+      setError(err.message);
+    }
     setLoading(false);
   };
 
@@ -51,15 +65,25 @@ export default function Admin() {
     e.preventDefault();
     
     if (editingId) {
-      await supabaseAdmin
+      const { error: updateError } = await supabaseAdmin
         .from('proyectos')
         .update(form)
         .eq('id', editingId);
+      
+      if (updateError) {
+        alert('Error al actualizar: ' + updateError.message);
+        return;
+      }
       setEditingId(null);
     } else {
-      await supabaseAdmin
+      const { error: insertError } = await supabaseAdmin
         .from('proyectos')
         .insert([form]);
+      
+      if (insertError) {
+        alert('Error al insertar: ' + insertError.message);
+        return;
+      }
       setIsAdding(false);
     }
     
@@ -80,7 +104,12 @@ export default function Admin() {
 
   const handleDelete = async (id) => {
     if (confirm('¿Eliminar este proyecto?')) {
-      await supabaseAdmin.from('proyectos').delete().eq('id', id);
+      const { error: deleteError } = await supabaseAdmin.from('proyectos').delete().eq('id', id);
+      
+      if (deleteError) {
+        alert('Error al eliminar: ' + deleteError.message);
+        return;
+      }
       fetchProyectos();
     }
   };
@@ -173,9 +202,15 @@ export default function Admin() {
 
         <section className="admin__list-section">
           <h2>Proyectos ({proyectos.length})</h2>
+          {error && (
+            <div className="admin__error">
+              <p>Error: {error}</p>
+              <p>Verifica que las políticas RLS permitan operaciones en la tabla proyectos.</p>
+            </div>
+          )}
           {loading ? (
             <p>Cargando...</p>
-          ) : proyectos.length === 0 ? (
+          ) : proyectos.length === 0 && !error ? (
             <p className="admin__empty">No hay proyectos. Agrega uno nuevo.</p>
           ) : (
             <div className="admin__list">
