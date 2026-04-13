@@ -92,6 +92,82 @@ src/
 
 ---
 
+## Plan de Panel de Administración con Supabase
+
+### 1. Configuración Supabase
+- **Project Ref:** `uzrvomvullxcugcnnmwm`
+- **Publishable Key:** `sb_publishable_sdL719boaFM4ozyUsv-7eA_Ik27kJ8e`
+- **Service Role Key:** `cb11b4dc2896d44f9aa17dad4ae399d2577fdf7c48593798d7c17d998f75bc24`
+
+### 2. Tabla `proyectos` en Supabase
+```sql
+CREATE TABLE proyectos (
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  nombre TEXT NOT NULL,
+  descripcion TEXT NOT NULL,
+  url TEXT NOT NULL,
+  tecnologias TEXT[] DEFAULT '{}',
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+ALTER TABLE proyectos ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "Proyectos son públicos" ON proyectos
+  FOR SELECT USING (true);
+
+CREATE POLICY "Solo admin puede modificar" ON proyectos
+  FOR ALL USING (auth.role() = 'service_role');
+```
+
+### 3. Nueva Estructura de Archivos
+```
+src/
+├── lib/
+│   └── supabase.js       # Cliente Supabase
+├── pages/
+│   └── Admin.jsx          # Panel de administración
+├── components/
+│   ├── Nav.jsx
+│   ├── Hero.jsx
+│   ├── SobreMi.jsx
+│   ├── Proyectos.jsx      # Fetch desde Supabase
+│   ├── Habilidades.jsx
+│   ├── Contacto.jsx
+│   └── PrivateRoute.jsx   # Proteger rutas admin
+├── App.jsx                # Agregar rutas
+├── main.jsx
+└── index.css
+```
+
+### 4. Dependencias a Instalar
+- `@supabase/supabase-js`
+- `react-router-dom`
+
+### 5. Variables de Entorno (.env)
+```
+VITE_SUPABASE_URL=https://uzrvomvullxcugcnnmwm.supabase.co
+VITE_SUPABASE_ANON_KEY=sb_publishable_sdL719boaFM4ozyUsv-7eA_Ik27kJ8e
+```
+
+### 6. Funcionalidades del Panel Admin (/admin)
+- **Login simple** con contraseña fija (no full auth)
+- **Lista de proyectos** con opciones editar/eliminar
+- **Formulario** para agregar nuevo proyecto
+- **Mismo estilo visual** oscuro (#0a0a0a) con acento cyan (#22d3ee)
+
+### 7. Cambios en Componente Proyectos
+- Reemplazar `import proyectos from '../data/proyectos.json'` por fetch a Supabase
+- Mantener diseño visual idéntico de cards con flip
+
+### 8. Rutas
+- `/` - Página principal (sin cambios visuales)
+- `/admin` - Panel de administración (protegido con contraseña)
+
+---
+
 ## Estado Actual
-- ⏳ Por convertir a React
-- ⏳ Build pendiente
+- ✅ Proyecto React con Vite
+- ✅ Build exitoso
+- ✅ SEO implementado
+- ✅ sitemap.xml y robots.txt
+- ⏳ Panel Admin con Supabase (en progreso)

@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import proyectos from '../data/proyectos.json';
+import { useState, useEffect } from 'react';
+import { supabase } from '../lib/supabase';
 
 const techIcons = {
   html: { icon: 'fab fa-html5', color: '#ff7300' },
@@ -26,7 +26,25 @@ const getFaviconUrl = (url) => {
 };
 
 export default function Proyectos() {
+  const [proyectos, setProyectos] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [flippedCards, setFlippedCards] = useState({});
+
+  useEffect(() => {
+    fetchProyectos();
+  }, []);
+
+  const fetchProyectos = async () => {
+    const { data, error } = await supabase
+      .from('proyectos')
+      .select('*')
+      .order('created_at', { ascending: false });
+    
+    if (data) {
+      setProyectos(data);
+    }
+    setLoading(false);
+  };
 
   const toggleFlip = (index) => {
     setFlippedCards((prev) => ({ ...prev, [index]: !prev[index] }));
@@ -36,54 +54,59 @@ export default function Proyectos() {
     <section id="proyectos" className="proyectos" aria-labelledby="proyectos-titulo">
       <h2 id="proyectos-titulo" className="section__title">Proyectos Realizados</h2>
       <p className="proyectos__descripcion">Explora mis proyectos de desarrollo web, aplicaciones y soluciones digitales creadas para clientes y proyectos personales.</p>
-      <div className="proyectos__grid">
-        {proyectos.map((proyecto, index) => (
-          <div
-            key={index}
-            className={`proyecto-card ${flippedCards[index] ? 'flipped' : ''}`}
-            onClick={() => toggleFlip(index)}
-            onMouseEnter={() => window.innerWidth >= 768 && toggleFlip(index)}
-            onMouseLeave={() => window.innerWidth >= 768 && toggleFlip(index)}
-          >
-            <div className="proyecto-card__inner">
-              <div className="proyecto-card__front">
-                <div className="proyecto-card__icon">
-                  <img
-                    src={getFaviconUrl(proyecto.url)}
-                    alt={proyecto.nombre}
-                    loading="lazy"
-                  />
+      
+      {loading ? (
+        <p className="proyectos__loading">Cargando proyectos...</p>
+      ) : (
+        <div className="proyectos__grid">
+          {proyectos.map((proyecto, index) => (
+            <div
+              key={proyecto.id}
+              className={`proyecto-card ${flippedCards[index] ? 'flipped' : ''}`}
+              onClick={() => toggleFlip(index)}
+              onMouseEnter={() => window.innerWidth >= 768 && toggleFlip(index)}
+              onMouseLeave={() => window.innerWidth >= 768 && toggleFlip(index)}
+            >
+              <div className="proyecto-card__inner">
+                <div className="proyecto-card__front">
+                  <div className="proyecto-card__icon">
+                    <img
+                      src={getFaviconUrl(proyecto.url)}
+                      alt={proyecto.nombre}
+                      loading="lazy"
+                    />
+                  </div>
+                  <h3>{proyecto.nombre}</h3>
+                  <span className="proyecto-card__domain">{getDomain(proyecto.url)}</span>
                 </div>
-                <h3>{proyecto.nombre}</h3>
-                <span className="proyecto-card__domain">{getDomain(proyecto.url)}</span>
-              </div>
-              <div className="proyecto-card__back">
-                <h3>{proyecto.nombre}</h3>
-                <p>{proyecto.descripcion}</p>
-                <div className="proyecto-card__techs">
-                  {proyecto.tecnologias.map((tech) => (
-                    <span
-                      key={tech}
-                      className="proyecto-card__tech"
-                      style={{ color: techIcons[tech]?.color || '#22d3ee' }}
-                    >
-                      <i className={techIcons[tech]?.icon} />
-                    </span>
-                  ))}
+                <div className="proyecto-card__back">
+                  <h3>{proyecto.nombre}</h3>
+                  <p>{proyecto.descripcion}</p>
+                  <div className="proyecto-card__techs">
+                    {proyecto.tecnologias?.map((tech) => (
+                      <span
+                        key={tech}
+                        className="proyecto-card__tech"
+                        style={{ color: techIcons[tech]?.color || '#22d3ee' }}
+                      >
+                        <i className={techIcons[tech]?.icon} />
+                      </span>
+                    ))}
+                  </div>
+                  <a
+                    href={proyecto.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="proyecto-card__btn"
+                  >
+                    Ver Proyecto
+                  </a>
                 </div>
-                <a
-                  href={proyecto.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="proyecto-card__btn"
-                >
-                  Ver Proyecto
-                </a>
               </div>
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
     </section>
   );
 }
