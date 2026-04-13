@@ -20,9 +20,10 @@ export default function Contacto() {
   ];
 
   return (
-    <footer id="contacto" className="contacto">
+    <footer id="contacto" className="contacto" aria-labelledby="contacto-titulo">
       <div className="contacto__container">
-        <h2 className="section__title">Contacto</h2>
+        <h2 id="contacto-titulo" className="section__title">Contacto</h2>
+        <p>¿Tienes un proyecto en mente? Contáctame para discutir cómo puedo ayudarte a construir tu sitio web o aplicación.</p>
         
         <div className="contacto__info">
           <div className="contacto__item">
