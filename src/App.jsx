@@ -1,45 +1,37 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Nav from './components/Nav';
-import Hero from './components/Hero';
-import SobreMi from './components/SobreMi';
-import Habilidades from './components/Habilidades';
-import Proyectos from './components/Proyectos';
-import Contacto from './components/Contacto';
-import PrivateRoute from './components/PrivateRoute';
-import Admin from './pages/Admin';
-import AdminLogin from './pages/AdminLogin';
-import './index.css';
+import { lazy, Suspense } from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Layout from './components/Layout';
+import ScrollToTop from './components/ScrollToTop';
+import Home from './pages/Home';
+import ProyectoDetalle from './pages/ProyectoDetalle';
+import Pagina from './pages/Pagina';
+import NotFound from './pages/NotFound';
 
-function Home() {
-  return (
-    <>
-      <Nav />
-      <Hero />
-      <SobreMi />
-      <Habilidades />
-      <Proyectos />
-      <Contacto />
-    </>
-  );
-}
+const Admin = import.meta.env.DEV ? lazy(() => import('./pages/Admin')) : null;
 
-function App() {
+export default function App() {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/admin/login" element={<AdminLogin />} />
-        <Route
-          path="/admin"
-          element={
-            <PrivateRoute>
-              <Admin />
-            </PrivateRoute>
-          }
-        />
+        <Route element={<Layout />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/proyectos/:slug" element={<ProyectoDetalle />} />
+          <Route path="/paginas/:slug" element={<Pagina />} />
+          <Route path="*" element={<NotFound />} />
+        </Route>
+
+        {import.meta.env.DEV && Admin && (
+          <Route
+            path="/admin"
+            element={
+              <Suspense fallback={<div className="admin-loading">Cargando panel…</div>}>
+                <Admin />
+              </Suspense>
+            }
+          />
+        )}
       </Routes>
     </BrowserRouter>
   );
 }
-
-export default App;

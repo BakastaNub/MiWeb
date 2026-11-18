@@ -1,140 +1,103 @@
-import { useState } from 'react';
-import { supabase } from '../lib/supabase';
+import {
+  FacebookIcon,
+  GitHubIcon,
+  InstagramIcon,
+  LinkedInIcon,
+  MailIcon,
+  MapPinIcon,
+  WhatsAppIcon,
+} from './Icons';
 
-const SOCIAL_LINKS = [
-  { href: 'https://github.com/BakastaNub', icon: 'fab fa-github', label: 'GitHub' },
-  { href: 'https://www.linkedin.com/in/bakastanub', icon: 'fab fa-linkedin', label: 'LinkedIn' },
-  { href: 'https://www.facebook.com/BakastaNub/', icon: 'fab fa-facebook', label: 'Facebook' },
-  { href: 'https://www.instagram.com/wilsolution26', icon: 'fab fa-instagram', label: 'Instagram' },
+const REDES = [
+  {
+    href: 'https://github.com/BakastaNub',
+    label: 'GitHub',
+    Icon: GitHubIcon,
+  },
+  {
+    href: 'https://www.linkedin.com/in/bakastanub',
+    label: 'LinkedIn',
+    Icon: LinkedInIcon,
+  },
+  {
+    href: 'https://www.facebook.com/BakastaNub/',
+    label: 'Facebook',
+    Icon: FacebookIcon,
+  },
+  {
+    href: 'https://www.instagram.com/wilsolution26',
+    label: 'Instagram',
+    Icon: InstagramIcon,
+  },
 ];
 
-const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
+const WHATSAPP_MESSAGE =
+  'Hola Wilder, vi tu web y me gustaría hablar sobre un proyecto.';
 
 export default function Contacto() {
-  const [form, setForm] = useState({ nombre: '', email: '', mensaje: '' });
-  const [status, setStatus] = useState('idle');
-
-  const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setStatus('loading');
-
-    try {
-      const response = await fetch(
-        `${SUPABASE_URL}/functions/v1/send-contact-email`,
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            nombre: form.nombre,
-            email: form.email,
-            mensaje: form.mensaje,
-          }),
-        }
-      );
-
-      const result = await response.json();
-
-      if (!response.ok) {
-        throw new Error(result.error || 'Error al enviar');
-      }
-
-      setStatus('success');
-      setForm({ nombre: '', email: '', mensaje: '' });
-      
-      setTimeout(() => setStatus('idle'), 3000);
-    } catch (err) {
-      console.error('Error:', err);
-      setStatus('error');
-      setTimeout(() => setStatus('idle'), 3000);
-    }
-  };
+  const whatsappHref = `/api/whatsapp?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`;
 
   return (
-    <footer id="contacto" className="contacto" aria-labelledby="contacto-titulo">
-      <div className="contacto__container">
-        <h2 id="contacto-titulo" className="section__title">Contacto</h2>
-        <p>¿Tienes un proyecto en mente? Contáctame para discutir cómo puedo ayudarte a construir tu sitio web o aplicación.</p>
-        
-        <div className="contacto__info">
-          <div className="contacto__item">
-            <i className="fas fa-phone" />
-            <span>+34 672 557 569</span>
-          </div>
-          <div className="contacto__item">
-            <i className="fas fa-envelope" />
-            <span>admin@wilsolution.com</span>
-          </div>
-          <div className="contacto__item">
-            <i className="fas fa-map-marker-alt" />
-            <span>Valencia, España</span>
-          </div>
+    <footer id="contacto" className="contact" aria-labelledby="contacto-title">
+      <div className="contact__inner">
+        <div className="contact__head">
+          <p className="section__label section__label--light">
+            <span>04</span> Contacto
+          </p>
+          <h2 id="contacto-title" className="contact__title">
+            ¿Construimos algo juntos?
+          </h2>
+          <p className="contact__lead">
+            Cuéntame qué necesitas y te responderé lo antes posible. Puedes
+            escribirme por WhatsApp o por email.
+          </p>
         </div>
 
-        <form className="contacto__form" onSubmit={handleSubmit}>
-          <input
-            type="text"
-            name="nombre"
-            placeholder="Nombre"
-            value={form.nombre}
-            onChange={handleChange}
-            required
-          />
-          <input
-            type="email"
-            name="email"
-            placeholder="Email"
-            value={form.email}
-            onChange={handleChange}
-            required
-          />
-          <textarea
-            name="mensaje"
-            placeholder="Mensaje"
-            value={form.mensaje}
-            onChange={handleChange}
-            required
-          />
-          
-          {status === 'success' && (
-            <div className="contacto__success">
-              ¡Mensaje enviado con éxito! Te responderé pronto.
-            </div>
-          )}
-          
-          {status === 'error' && (
-            <div className="contacto__error">
-              Error al enviar. Intenta de nuevo.
-            </div>
-          )}
-          
-          <button type="submit" className="contacto__btn" disabled={status === 'loading'}>
-            {status === 'loading' ? 'Enviando...' : 'Enviar'}
-          </button>
-        </form>
-
-        <div className="contacto__social">
-          {SOCIAL_LINKS.map((link) => (
-            <a
-              key={link.label}
-              href={link.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={link.label}
-            >
-              <i className={link.icon} />
-            </a>
-          ))}
+        <div className="contact__actions">
+          <a
+            className="button button--accent"
+            href={whatsappHref}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <WhatsAppIcon size={20} />
+            Escribir por WhatsApp
+          </a>
+          <a className="button button--outline" href="mailto:admin@wilsolution.com">
+            <MailIcon size={18} />
+            admin@wilsolution.com
+          </a>
         </div>
-      </div>
-      
-      <div className="contacto__bottom">
-        <p>&copy; {new Date().getFullYear()} Wilder Cermeño | Wilsolution. Todos los derechos reservados.</p>
+
+        <div className="contact__details">
+          <p className="contact__location">
+            <MapPinIcon size={18} />
+            Valencia, España
+          </p>
+
+          <ul className="contact__social">
+            {REDES.map(({ href, label, Icon }) => (
+              <li key={label}>
+                <a
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={label}
+                >
+                  <Icon size={18} />
+                  <span>{label}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div className="contact__bottom">
+          <p>
+            © {new Date().getFullYear()} Wilder Cermeño · Wilsolution
+          </p>
+          <p className="contact__signature">Diseñado y desarrollado en Valencia.</p>
+        </div>
       </div>
     </footer>
   );

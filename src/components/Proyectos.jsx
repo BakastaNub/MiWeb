@@ -1,112 +1,79 @@
-import { useState, useEffect } from 'react';
-import { supabase } from '../lib/supabase';
-
-const techIcons = {
-  html: { icon: 'fab fa-html5', color: '#ff7300' },
-  css: { icon: 'fab fa-css3', color: '#1572B6' },
-  js: { icon: 'fab fa-js', color: '#F7DF1E' },
-  sass: { icon: 'fab fa-sass', color: '#CC6699' },
-  react: { icon: 'fab fa-react', color: '#61DAFB' },
-  node: { icon: 'fab fa-node-js', color: '#339933' },
-  mysql: { icon: 'fas fa-server', color: '#4479A1' },
-  supabase: { icon: 'fas fa-boxes-stacked', color: '#3ECF8E' },
-};
-
-const getDomain = (url) => {
-  try {
-    return new URL(url).hostname.replace('www.', '');
-  } catch {
-    return url;
-  }
-};
-
-const getFaviconUrl = (url) => {
-  const domain = getDomain(url);
-  return `https://geticon.dev/api/icon?domain=${domain}&size=64`;
-};
+import { useMemo, useState } from 'react';
+import { getTechLabel, proyectos } from '../lib/content';
+import ProjectCard from './ProjectCard';
 
 export default function Proyectos() {
-  const [proyectos, setProyectos] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [flippedCards, setFlippedCards] = useState({});
-
-  useEffect(() => {
-    fetchProyectos();
+  const tecnologias = useMemo(() => {
+    const set = new Set();
+    proyectos.forEach((proyecto) => {
+      proyecto.tecnologias.forEach((tech) => set.add(tech));
+    });
+    return [...set].sort((a, b) => getTechLabel(a).localeCompare(getTechLabel(b)));
   }, []);
 
-  const fetchProyectos = async () => {
-    const { data, error } = await supabase
-      .from('proyectos')
-      .select('*')
-      .order('created_at', { ascending: false });
-    
-    if (data) {
-      setProyectos(data);
-    }
-    setLoading(false);
-  };
+  const [filtro, setFiltro] = useState('todos');
 
-  const toggleFlip = (index) => {
-    setFlippedCards((prev) => ({ ...prev, [index]: !prev[index] }));
-  };
+  const visibles =
+    filtro === 'todos'
+      ? proyectos
+      : proyectos.filter((proyecto) => proyecto.tecnologias.includes(filtro));
 
   return (
-    <section id="proyectos" className="proyectos" aria-labelledby="proyectos-titulo">
-      <h2 id="proyectos-titulo" className="section__title">Proyectos Realizados</h2>
-      <p className="proyectos__descripcion">Explora mis proyectos de desarrollo web, aplicaciones y soluciones digitales creadas para clientes y proyectos personales.</p>
-      
-      {loading ? (
-        <p className="proyectos__loading">Cargando proyectos...</p>
-      ) : (
-        <div className="proyectos__grid">
-          {proyectos.map((proyecto, index) => (
-            <div
-              key={proyecto.id}
-              className={`proyecto-card ${flippedCards[index] ? 'flipped' : ''}`}
-              onClick={() => toggleFlip(index)}
-              onMouseEnter={() => window.innerWidth >= 768 && toggleFlip(index)}
-              onMouseLeave={() => window.innerWidth >= 768 && toggleFlip(index)}
+    <section
+      id="proyectos"
+      className="section projects"
+      aria-labelledby="proyectos-title"
+    >
+      <div className="section__head">
+        <p className="section__label">
+          <span>03</span> Proyectos
+        </p>
+      </div>
+
+      <div className="projects__header">
+        <h2 id="proyectos-title" className="section__title">
+          Trabajo seleccionado.
+        </h2>
+        <p className="section__intro">
+          Una muestra de webs y aplicaciones que he diseñado y desarrollado.
+          Entra en cada proyecto para ver el contexto y las decisiones técnicas.
+        </p>
+      </div>
+
+      <div className="projects__filters" role="group" aria-label="Filtrar proyectos">
+        <button
+          type="button"
+          className={`filter ${filtro === 'todos' ? 'is-active' : ''}`}
+          onClick={() => setFiltro('todos')}
+          aria-pressed={filtro === 'todos'}
+        >
+          Todos
+          <span className="filter__count">{proyectos.length}</span>
+        </button>
+        {tecnologias.map((tech) => {
+          const count = proyectos.filter((proyecto) =>
+            proyecto.tecnologias.includes(tech)
+          ).length;
+          return (
+            <button
+              key={tech}
+              type="button"
+              className={`filter ${filtro === tech ? 'is-active' : ''}`}
+              onClick={() => setFiltro(tech)}
+              aria-pressed={filtro === tech}
             >
-              <div className="proyecto-card__inner">
-                <div className="proyecto-card__front">
-                  <div className="proyecto-card__icon">
-                    <img
-                      src={getFaviconUrl(proyecto.url)}
-                      alt={proyecto.nombre}
-                      loading="lazy"
-                    />
-                  </div>
-                  <h3>{proyecto.nombre}</h3>
-                  <span className="proyecto-card__domain">{getDomain(proyecto.url)}</span>
-                </div>
-                <div className="proyecto-card__back">
-                  <h3>{proyecto.nombre}</h3>
-                  <p>{proyecto.descripcion}</p>
-                  <div className="proyecto-card__techs">
-                    {proyecto.tecnologias?.map((tech) => (
-                      <span
-                        key={tech}
-                        className="proyecto-card__tech"
-                        style={{ color: techIcons[tech]?.color || '#22d3ee' }}
-                      >
-                        <i className={techIcons[tech]?.icon} />
-                      </span>
-                    ))}
-                  </div>
-                  <a
-                    href={proyecto.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="proyecto-card__btn"
-                  >
-                    Ver Proyecto
-                  </a>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      )}
+              {getTechLabel(tech)}
+              <span className="filter__count">{count}</span>
+            </button>
+          );
+        })}
+      </div>
+
+      <div className="projects__grid">
+        {visibles.map((proyecto, index) => (
+          <ProjectCard key={proyecto.slug} proyecto={proyecto} index={index} />
+        ))}
+      </div>
     </section>
   );
 }

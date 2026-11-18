@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 380" role="img" aria-labelledby="title desc">
+<title id="title">WilSolution W icon</title>
+<desc id="desc">Stylized cyan W with circuit traces and three circular terminals.</desc>
+<defs>
+ <linearGradient id="ribbon" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#08b8ed"/><stop offset="1" stop-color="#079bdc"/></linearGradient>
+ <linearGradient id="fold" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#087fc1"/><stop offset="1" stop-color="#075b9c"/></linearGradient>
+</defs>
+<g fill="none" stroke="#08afe8" stroke-width="10" stroke-linecap="round" stroke-linejoin="round">
+ <path d="M365 205 L475 30 H535"/>
+ <path d="M395 238 L485 105 H535"/>
+ <path d="M430 255 L490 165 Q500 150 520 150"/>
+</g>
+<g fill="#172e50" stroke="#08afe8" stroke-width="10">
+ <circle cx="548" cy="30" r="16"/><circle cx="548" cy="105" r="16"/><circle cx="535" cy="150" r="16"/>
+</g>
+<path d="M65 72 L155 72 Q177 72 189 94 L252 220 Q267 250 290 250 Q314 250 328 220 L365 145 L410 222 Q425 250 449 250 Q473 250 487 222" fill="none" stroke="url(#ribbon)" stroke-width="88" stroke-linecap="butt" stroke-linejoin="round"/>
+<path d="M257 211 L294 145 L337 220 L307 275 Q297 293 280 293" fill="none" stroke="url(#fold)" stroke-width="34" stroke-linecap="butt" stroke-linejoin="round" opacity=".9"/>
+</svg>

@@ -1,50 +1,101 @@
 [
   {
-    "nombre": "Festival Musical",
-    "descripcion": "Plataforma para festivales de musica con venta de entradas",
+    "slug": "techno-edm-festival",
+    "nombre": "Techno & EDM Festival",
+    "descripcion": "Landing para un festival de techno y EDM con line-up por días, galería y venta de pases de 1 y 2 días.",
+    "url": "https://festival-musical-sass.netlify.app/",
     "tecnologias": ["html", "css", "js", "sass"],
-    "url": "https://festival-musical-sass.netlify.app/"
+    "imagen": "",
+    "anio": "",
+    "destacado": true,
+    "contenido": "## La web\n\nPágina oficial de un festival de techno y EDM en Caracas: presenta el cartel por días, la galería y los pases disponibles en una sola experiencia visual.\n\n## Funciones\n\n- Line-up separado por escenarios de techno y EDM para viernes y sábado.\n- Galería de imágenes del evento.\n- Pases de 1 y 2 días con el detalle de lo que incluye cada uno.\n- Navegación por anclas entre line-up, galería y boletos.\n- Diseño responsive con una identidad visual de cartel.\n\n## Tecnologías\n\nHTML semántico, SASS con variables y mixins, JavaScript para la navegación y CSS Grid/Flexbox para la composición."
   },
   {
-    "nombre": "Blog de Cafe",
-    "descripcion": "Blog sobre cafe con articulos y tutoriales",
+    "slug": "blog-de-cafe",
+    "nombre": "BlogDeCafé",
+    "descripcion": "Blog de café con entradas, cursos y talleres, navegación por secciones y diseño editorial.",
+    "url": "https://pagina-modelo-cafe.netlify.app/",
     "tecnologias": ["html", "css"],
-    "url": "https://pagina-modelo-cafe.netlify.app/"
+    "imagen": "",
+    "anio": "",
+    "destacado": false,
+    "contenido": "## La web\n\nBlog temático sobre café que combina artículos, cursos y una página de contacto, con una lectura cómoda y una estructura editorial clara.\n\n## Funciones\n\n- Listado de entradas con imagen, extracto y enlace de lectura.\n- Sección de cursos y talleres con precio y cupo disponible.\n- Navegación entre blog, nosotros, cursos y contacto.\n- Cabecera con imagen principal y llamada a la acción.\n- Diseño responsive con tarjetas y bloques reutilizables.\n\n## Tecnologías\n\nHTML semántico y CSS con una paleta cálida, tipografía cuidada y una retícula flexible para adaptar el contenido a móvil y escritorio."
   },
   {
-    "nombre": "Dev Store",
-    "descripcion": "Tienda de camisas para devs",
+    "slug": "frontend-store",
+    "nombre": "FrontEnd Store",
+    "descripcion": "Tienda de camisetas para desarrolladores con catálogo de productos y navegación por secciones.",
+    "url": "https://camisas-devs-tienda.netlify.app/",
     "tecnologias": ["html", "css"],
-    "url": "https://camisas-devs-tienda.netlify.app/"
+    "imagen": "",
+    "anio": "",
+    "destacado": false,
+    "contenido": "## La web\n\nTienda de camisetas con temática de desarrollo web. El catálogo reúne diseños de tecnologías como Vue, Angular, React, Node.js o TypeScript.\n\n## Funciones\n\n- Catálogo de productos con imagen, nombre y precio.\n- Rejilla de productos adaptable a distintas pantallas.\n- Navegación entre tienda y página de información.\n- Estructura de ecommerce lista para conectar una pasarela de pago.\n- Identidad visual propia con tipografía y colores de marca.\n\n## Tecnologías\n\nHTML semántico y CSS Grid para la rejilla de productos, con componentes reutilizables y estilos responsive."
   },
   {
-    "nombre": "Presentacion",
-    "descripcion": "Pagina de presentacion personal",
+    "slug": "disenador-freelancer",
+    "nombre": "Diseñador Freelancer",
+    "descripcion": "One page de presentación para un diseñador freelance con servicios y formulario de contacto.",
+    "url": "https://presentacion-muestra.netlify.app/",
     "tecnologias": ["html", "css"],
-    "url": "https://presentacion-muestra.netlify.app/"
+    "imagen": "",
+    "anio": "",
+    "destacado": false,
+    "contenido": "## La web\n\nPágina de presentación para un diseñador y desarrollador freelance. Reúne quién es, qué servicios ofrece y cómo contactar en una sola página.\n\n## Funciones\n\n- Hero con nombre, especialidad y ubicación.\n- Bloque de servicios: diseño web, aplicaciones web y ecommerce.\n- Sección de presentación personal.\n- Formulario de contacto con nombre, teléfono, correo y mensaje.\n- Navegación fija por secciones y adaptación a móvil.\n\n## Tecnologías\n\nHTML y CSS con una composición limpia, tipografía de contraste y una estructura pensada para presentar servicios de forma directa."
   },
   {
-    "nombre": "Portafolio",
-    "descripcion": "Portafolio personal con diseno moderno",
-    "tecnologias": ["react", "css"],
-    "url": "https://bakastanub.netlify.app/"
+    "slug": "wilsolution",
+    "nombre": "Wilsolution",
+    "descripcion": "Web personal de Wilsolution: portafolio editorial con proyectos, páginas de caso y gestión local de contenido.",
+    "url": "https://wilsolution.com/",
+    "tecnologias": ["react", "css", "js", "netlify"],
+    "imagen": "",
+    "anio": "",
+    "destacado": true,
+    "contenido": "## La web\n\nPortafolio profesional de Wilder Cermeño (Wilsolution): una web editorial en tonos azules con presentación, habilidades, proyectos y páginas de caso.\n\n## Funciones\n\n- Hero de presentación con retrato y estado de disponibilidad.\n- Proyectos cargados desde archivos JSON del repositorio, con favicon automático y filtros por tecnología.\n- Páginas de caso generadas desde Markdown para cada proyecto.\n- Panel local de administración para crear y editar proyectos y páginas.\n- Contacto con enlace de WhatsApp sin exponer el número y email directo.\n- SEO con metadatos, JSON-LD, sitemap y diseño responsive.\n\n## Tecnologías\n\nReact con Vite, React Router, React Markdown, CSS propio y Netlify Functions para la redirección privada de WhatsApp."
   },
   {
-    "nombre": "Mantenimiento",
-    "descripcion": "Sistema de gestion de mantenimiento",
+    "slug": "tecnico-cocinas-daniel",
+    "nombre": "Técnico de Cocinas Daniel",
+    "descripcion": "Web de servicio técnico en Valencia: reparación y mantenimiento de cocinas domésticas e industriales, urgencias 24/7.",
+    "url": "https://www.tecnicocinadaniel.com/",
     "tecnologias": ["react", "css", "js"],
-    "url": "https://lmantenimiento.netlify.app/"
+    "imagen": "",
+    "anio": "",
+    "destacado": false,
+    "contenido": "## La web\n\nSitio profesional para un técnico de cocinas en Valencia. Está orientado a captar clientes que necesitan reparación o mantenimiento, tanto en cocinas domésticas como industriales.\n\n## Funciones\n\n- Presentación del servicio y propuesta de valor.\n- Detalle de reparación de cocinas industriales, domésticas y mantenimiento preventivo.\n- Llamada al servicio urgente 24/7.\n- Contacto directo por teléfono, email y WhatsApp.\n- SEO local con datos estructurados de negocio y área de servicio en Valencia.\n- Diseño responsive enfocado a la conversión.\n\n## Tecnologías\n\nReact con Vite, CSS propio y JavaScript. Metadatos Open Graph, Twitter Card y JSON-LD de tipo LocalBusiness para el posicionamiento local."
   },
   {
-    "nombre": "BlueNails",
-    "descripcion": "Servicios de manicura y pedicura con backend",
+    "slug": "bluna-nail",
+    "nombre": "Bluna Nail",
+    "descripcion": "Web de centro de manicura y pedicura con reserva de citas online y gestión de horarios.",
+    "url": "https://bluenails.netlify.app/",
     "tecnologias": ["react", "css", "js", "node", "supabase"],
-    "url": "https://bluenails.netlify.app/"
+    "imagen": "",
+    "anio": "",
+    "destacado": true,
+    "contenido": "## La web\n\nAplicación web para un centro de manicura y pedicura. Además de presentar los servicios, permite reservar cita online y gestionar la disponibilidad del centro.\n\n## Funciones\n\n- Presentación de servicios de manicura, pedicura y diseño de uñas.\n- Reserva de cita con selección de fecha, hora y servicios.\n- Consulta de citas por número de teléfono.\n- Cancelación y edición de una reserva existente.\n- Control de horarios y límite de citas por día.\n- Gestión de servicios y citas desde el panel de administración.\n- Interfaz responsive con estética de centro de belleza.\n\n## Tecnologías\n\nReact para la interfaz, CSS propio, JavaScript y una API con Node.js y Supabase para persistir servicios, horarios y reservas."
   },
   {
-    "nombre": "Guitarly",
-    "descripcion": "Plataforma para aprender guitarra",
+    "slug": "guitarla",
+    "nombre": "GuitarLA",
+    "descripcion": "Tienda de guitarras con catálogo de productos, carrito persistente y cálculo del total.",
+    "url": "https://guitarly-web.netlify.app/",
     "tecnologias": ["react", "css", "js"],
-    "url": "https://guitarly-web.netlify.app/"
+    "imagen": "",
+    "anio": "",
+    "destacado": false,
+    "contenido": "## La web\n\nTienda online de guitarras centrada en el catálogo y la compra. La interfaz muestra la colección y permite construir un carrito sin recargar la página.\n\n## Funciones\n\n- Catálogo de guitarras con imagen, nombre y precio.\n- Añadir productos al carrito y ajustar cantidades.\n- Cálculo automático del total a pagar.\n- Eliminación de productos y vaciado completo del carrito.\n- Persistencia del carrito en localStorage entre visitas.\n- Estado vacío del carrito y diseño responsive.\n\n## Tecnologías\n\nReact con Vite, JavaScript para la lógica del carrito, CSS propio y localStorage para conservar la selección del usuario."
+  },
+  {
+    "slug": "lozartico",
+    "nombre": "Lozartico",
+    "descripcion": "Web corporativa de construcción, reformas y mantenimiento en Valencia y Gran Canaria, con servicios, trabajos y contacto directo.",
+    "url": "https://lozartico.netlify.app/",
+    "tecnologias": ["next", "react", "css"],
+    "imagen": "",
+    "anio": "",
+    "destacado": true,
+    "contenido": "## La web\n\nSitio corporativo de Lozartico Servicios Integrales, S.L.U., una empresa de construcción, reforma y mantenimiento que trabaja en Valencia y Gran Canaria.\n\n## Funciones\n\n- Presentación de la empresa y su propuesta de valor.\n- Cuatro bloques de servicio: construcción y reformas, instalaciones, impermeabilización y mantenimiento.\n- Galería de trabajos realizados con detalle ampliado de cada actuación.\n- Información de empresa, experiencia, certificaciones y zonas de servicio.\n- Opiniones de clientes enlazadas con Google.\n- Contacto directo por WhatsApp, email y teléfono, sin formularios.\n- Páginas de aviso legal y privacidad.\n- Diseño responsive, SEO local y enlaces a Google Maps.\n\n## Tecnologías\n\nNext.js con React, CSS propio, metadatos SEO y despliegue en Netlify."
   }
 ]

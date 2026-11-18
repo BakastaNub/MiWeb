@@ -1,36 +1,46 @@
-import habilidades from '../data/habilidades.json';
-
-const getIconClass = (icono) => {
-  if (icono.startsWith('fab')) return icono;
-  if (icono.startsWith('fas')) return icono;
-  
-  const brandIcons = ['fa-node', 'fa-github', 'fa-css3', 'fa-html5', 'fa-js', 'fa-react', 'fa-sass', 'fa-git-alt'];
-  if (brandIcons.includes(icono)) return `fab ${icono}`;
-  return `fas ${icono}`;
-};
+import { habilidades } from '../lib/content';
 
 export default function Habilidades() {
-  const categories = Object.keys(habilidades);
+  const categorias = Object.entries(habilidades);
 
   return (
-    <section id="habilidades" className="habilidades" aria-labelledby="habilidades-titulo">
-      <h2 id="habilidades-titulo" className="section__title">Habilidades y Tecnologías</h2>
-      <p className="habilidades__descripcion">Tecnologías y herramientas que domino para crear proyectos web completos, desde el frontend hasta el backend.</p>
-      <div className="habilidades__container">
-        {categories.map((category) => (
-          <div key={category} className="habilidades__category">
-            <h3 className="habilidades__category-title">{category}</h3>
-            <div className="habilidades__grid">
-              {habilidades[category].map((skill, index) => (
-                <div key={index} className="habilidades__skill">
-                  <i
-                    className={getIconClass(skill.icono)}
-                    style={{ color: skill.color }}
+    <section
+      id="habilidades"
+      className="section skills"
+      aria-labelledby="habilidades-title"
+    >
+      <div className="section__head">
+        <p className="section__label">
+          <span>02</span> Habilidades
+        </p>
+      </div>
+
+      <div className="skills__header">
+        <h2 id="habilidades-title" className="section__title">
+          Tecnologías con las que trabajo.
+        </h2>
+        <p className="section__intro">
+          Herramientas que uso a diario para llevar un proyecto desde la idea
+          hasta la publicación, cuidando el frontend, el backend y los datos.
+        </p>
+      </div>
+
+      <div className="skills__grid">
+        {categorias.map(([categoria, items]) => (
+          <div key={categoria} className="skills__group">
+            <h3 className="skills__category">{categoria}</h3>
+            <ul className="skills__list">
+              {items.map((skill) => (
+                <li key={skill.nombre} className="skills__item">
+                  <span
+                    className="skills__dot"
+                    style={{ backgroundColor: skill.color }}
+                    aria-hidden="true"
                   />
-                  <span>{skill.nombre}</span>
-                </div>
+                  {skill.nombre}
+                </li>
               ))}
-            </div>
+            </ul>
           </div>
         ))}
       </div>
